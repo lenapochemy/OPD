@@ -1,0 +1,27 @@
+		ORG		4DC
+STOP: 	WORD	000A
+ARR:	WORD	0x603
+HELP:	WORD	0000
+BEGIN:	CLA
+S1:		IN 		7
+		AND		#0x40
+		BEQ		S1
+		IN 		6
+		ST 		(ARR)
+		CMP 	STOP
+		BEQ 	FINISH
+		CLA
+S2:		IN 		7
+		AND		#0x40
+		BEQ 	S2
+		IN 		6
+		ST 		HELP
+		SWAB
+		ADD		(ARR)
+		ST 		(ARR)+
+		SWAM	HELP
+		CMP 	STOP
+		BEQ 	FINISH
+		JUMP 	BEGIN
+
+FINISH:	HLT
